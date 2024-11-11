@@ -17,5 +17,19 @@ float compute_iou(const cv::Rect& a, const cv::Rect& b) {
      * 运行测试点，显示通过就行，不通过会告诉你哪一组矩形错了。
     */
     // IMPLEMENT YOUR CODE HERE
+    int x_intersection = std::max(a.x, b.x);
+    int y_intersection = std::max(a.y, b.y);
+    int x_union = std::min(a.x + a.width, b.x + b.width);
+    int y_union = std::min(a.y + a.height, b.y + b.height);
+    int intersection_width = std::max(0, x_union - x_intersection);
+    int intersection_height = std::max(0, y_union - y_intersection);
+    int intersection_area = intersection_width * intersection_height;
+    int union_area = a.area() + b.area() - intersection_area;
+    if (union_area == 0)
+     {
+        return 0.f; // 避免除以零的情况
+    }
+
+
     return 0.f;
 }
